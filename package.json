@@ -1,0 +1,16 @@
+{
+  "name": "data-monitoring-service",
+  "version": "0.0.0",
+  "description": "Microservice that monitors known data issues and notifies via e-mail when they occur",
+  "author": "redpencil.io",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanselarij-vlaanderen/data-monitoring-service.git"
+  },
+  "dependencies": {
+    "@lblod/mu-auth-sudo": "^0.6.1",
+    "cron": "^3.1.6"
+  }
+}
