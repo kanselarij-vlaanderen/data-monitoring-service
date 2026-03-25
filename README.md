@@ -16,4 +16,5 @@ data-monitoring:
     POLLING_CRON_PATTERN: "0 0/10 4-22 * * *" # how often we poll for issues
     EMAIL_FROM_ADDRESS: "noreply@kaleidos.vlaanderen.be"
     EMAIL_TO_ADDRESS_ON_FAILURE: "" # recipients of the emails. If left blank no emails will be created
+    THEMIS_ENDPOINT_URL:  "https://themis.vlaanderen.be" # Base url for themis
 ```

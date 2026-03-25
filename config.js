@@ -7,6 +7,11 @@ const EMAIL_TO_ADDRESS_ON_FAILURE = process.env.EMAIL_TO_ADDRESS_ON_FAILURE ?? '
 const RESOURCE_BASE_URI  = 'http://themis.vlaanderen.be';
 const EMAIL_GRAPH_URI = "http://mu.semte.ch/graphs/system/email";
 const EMAIL_OUTBOX_URI = "http://themis.vlaanderen.be/id/mail-folders/4296e6af-7d4f-423d-ba89-ed4cbbb33ae7";
+const ADMIN_ROLE = 'http://themis.vlaanderen.be/id/gebruikersrol/9a969b13-e80b-424f-8a82-a402bcb42bc5';
+
+const THEMIS_ENDPOINT_URL = process.env.THEMIS_ENDPOINT_URL ?? "https://themis.vlaanderen.be"
+const THEMIS_ENDPOINT_SPARQL = `${THEMIS_ENDPOINT_URL}/sparql`;
+const THEMIS_ENDPOINT_DATASETS = `${THEMIS_ENDPOINT_URL}/datasets`;
 
 export {
   KALEIDOS_HOST_URL,
@@ -15,5 +20,8 @@ export {
   EMAIL_TO_ADDRESS_ON_FAILURE,
   RESOURCE_BASE_URI,
   EMAIL_GRAPH_URI,
-  EMAIL_OUTBOX_URI
+  EMAIL_OUTBOX_URI,
+  ADMIN_ROLE,
+  THEMIS_ENDPOINT_SPARQL,
+  THEMIS_ENDPOINT_DATASETS
 }
