@@ -1,5 +1,7 @@
 # data-monitoring-service
-A service to monitor known data issues and notify via e-mail
+A service for monitoring some of the data.
+
+Several endpoints are available for creating the dashboard regarding the Kaleidos > Themis process.
 
 ## Tutorials
 
@@ -16,4 +18,12 @@ data-monitoring:
     POLLING_CRON_PATTERN: "0 0/10 4-22 * * *" # how often we poll for issues
     EMAIL_FROM_ADDRESS: "noreply@kaleidos.vlaanderen.be"
     EMAIL_TO_ADDRESS_ON_FAILURE: "" # recipients of the emails. If left blank no emails will be created
+    THEMIS_ENDPOINT_URL:  "https://themis.vlaanderen.be" # Base url for themis
+```
+
+### Add the service to the dispatcher
+```elixir
+get "/data-monitoring/*path", @json_service do
+  Proxy.forward conn, path, "http://data-monitoring/"
+end
 ```
