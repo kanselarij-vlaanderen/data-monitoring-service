@@ -1,6 +1,4 @@
 import { app, errorHandler } from "mu";
-import { ADMIN_ROLE } from "./config";
-import { isLoggedIn, sessionHasRole } from "./lib/session";
 import { getMeetingURI } from "./lib/meeting";
 import { getExportJobForMeeting } from "./lib/public-export-job";
 import { getTtlToDeltaTaskForMeeting } from "./lib/ttl-to-delta";
@@ -10,21 +8,6 @@ import { getThemisDatasetForMeeting } from "./lib/themis-dataset";
 
 app.get("/meeting/:uuid/public-export-jobs", async function (req, res) {
   try {
-    const sessionUri = req.headers["mu-session-id"];
-    if (!(await isLoggedIn(sessionUri))) {
-      return next({
-        message: "Unauthorized access to this endpoint is not permitted",
-        status: 401,
-      });
-    }
-    const hasCorrectRole = await sessionHasRole(sessionUri, [ADMIN_ROLE]);
-    if (!hasCorrectRole) {
-      return next({
-        message: "Unauthorized access to this endpoint is not permitted",
-        status: 403,
-      });
-    }
-
     if (!req.query.startDate) {
       return res.status(400).send(
         JSON.stringify({
@@ -56,20 +39,6 @@ app.get("/meeting/:uuid/public-export-jobs", async function (req, res) {
 
 app.get("/meeting/:uuid/tto-to-delta-task", async function (req, res) {
   try {
-    const sessionUri = req.headers["mu-session-id"];
-    if (!(await isLoggedIn(sessionUri))) {
-      return next({
-        message: "Unauthorized access to this endpoint is not permitted",
-        status: 401,
-      });
-    }
-    const hasCorrectRole = await sessionHasRole(sessionUri, [ADMIN_ROLE]);
-    if (!hasCorrectRole) {
-      return next({
-        message: "Unauthorized access to this endpoint is not permitted",
-        status: 403,
-      });
-    }
     if (!req.query.startDate) {
       return res.status(400).send(
         JSON.stringify({
@@ -101,20 +70,6 @@ app.get("/meeting/:uuid/tto-to-delta-task", async function (req, res) {
 
 app.get("/meeting/:uuid/themis-sync-task", async function (req, res) {
   try {
-    const sessionUri = req.headers["mu-session-id"];
-    if (!(await isLoggedIn(sessionUri))) {
-      return next({
-        message: "Unauthorized access to this endpoint is not permitted",
-        status: 401,
-      });
-    }
-    const hasCorrectRole = await sessionHasRole(sessionUri, [ADMIN_ROLE]);
-    if (!hasCorrectRole) {
-      return next({
-        message: "Unauthorized access to this endpoint is not permitted",
-        status: 403,
-      });
-    }
     if (!req.query.startDate) {
       return res.status(400).send(
         JSON.stringify({
@@ -146,20 +101,6 @@ app.get("/meeting/:uuid/themis-sync-task", async function (req, res) {
 
 app.get("/meeting/:uuid/themis-release-task", async function (req, res) {
   try {
-    const sessionUri = req.headers["mu-session-id"];
-    if (!(await isLoggedIn(sessionUri))) {
-      return next({
-        message: "Unauthori²ed access to this endpoint is not permitted",
-        status: 401,
-      });
-    }
-    const hasCorrectRole = await sessionHasRole(sessionUri, [ADMIN_ROLE]);
-    if (!hasCorrectRole) {
-      return next({
-        message: "Unauthorized access to this endpoint is not permitted",
-        status: 403,
-      });
-    }
     if (!req.query.startDate) {
       return res.status(400).send(
         JSON.stringify({
@@ -194,20 +135,6 @@ app.get("/meeting/:uuid/themis-release-task", async function (req, res) {
 
 app.get("/meeting/:uuid/themis-dataset", async function (req, res) {
   try {
-    const sessionUri = req.headers["mu-session-id"];
-    if (!(await isLoggedIn(sessionUri))) {
-      return next({
-        message: "Unauthorized access to this endpoint is not permitted",
-        status: 401,
-      });
-    }
-    const hasCorrectRole = await sessionHasRole(sessionUri, [ADMIN_ROLE]);
-    if (!hasCorrectRole) {
-      return next({
-        message: "Unauthorized access to this endpoint is not permitted",
-        status: 403,
-      });
-    }
     if (!req.query.startDate) {
       return res.status(400).send(
         JSON.stringify({
