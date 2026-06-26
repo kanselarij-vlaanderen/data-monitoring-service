@@ -1,8 +1,5 @@
 import { app, errorHandler } from "mu";
-import { CronJob } from "cron";
-import { countPiecesWithoutType, countPiecesWithoutId } from "./lib/pieces";
-import { KALEIDOS_HOST_URL, POLLING_CRON_PATTERN, ADMIN_ROLE } from "./config";
-import { createEmail } from "./lib/email";
+import { ADMIN_ROLE } from "./config";
 import { isLoggedIn, sessionHasRole } from "./lib/session";
 import { getMeetingURI } from "./lib/meeting";
 import { getExportJobForMeeting } from "./lib/public-export-job";
@@ -10,50 +7,6 @@ import { getTtlToDeltaTaskForMeeting } from "./lib/ttl-to-delta";
 import { getThemisSyncTaskForMeeting } from "./lib/themis-sync-task";
 import { getThemisReleaseTaskForMeeting } from "./lib/themis-release-task";
 import { getThemisDatasetForMeeting } from "./lib/themis-dataset";
-
-// TODO decide if we want to keep this over metrics PR (which can also be used to send emails)
-// new CronJob(
-//   POLLING_CRON_PATTERN,
-//   async () => {
-//     console.log(
-//       `Running data checks triggered by cron job at ${new Date().toISOString()}`,
-//     );
-//     await runDataChecks();
-//   }, // onTick
-//   null, // onComplete
-//   true, // start
-// );
-
-async function runDataChecks() {
-  try {
-    let message = "";
-    let sendEmail = false;
-    const piecesWithoutType = await countPiecesWithoutType();
-    const piecesWithoutId = await countPiecesWithoutId();
-    if (piecesWithoutType | piecesWithoutId) {
-      sendEmail = true;
-      message += `
-Found ${piecesWithoutType} pieces where type is missing on main graph
-Found ${piecesWithoutId} pieces where id is missing on main graph
-  `;
-    }
-    // more can be added here, just append messages
-
-    if (sendEmail) {
-      console.log(message);
-      await createEmail(
-        "Polling from data-monitoring has detected data inconsistencies",
-        `environment: ${KALEIDOS_HOST_URL}\t\nDetail:\t\n${message}`,
-      );
-    }
-  } catch (e) {
-    console.trace(e);
-    await createEmail(
-      "Polling from data-monitoring has failed",
-      `environment: ${KALEIDOS_HOST_URL}\t\nDetail of error: ${e?.message || "no details available"}`,
-    );
-  }
-}
 
 app.get("/meeting/:uuid/public-export-jobs", async function (req, res) {
   try {
