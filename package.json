@@ -1,7 +1,7 @@
 {
   "name": "data-monitoring-service",
   "version": "1.0.1",
-  "description": "Microservice that monitors known data issues and notifies via e-mail when they occur",
+  "description": "Microservice that exposes known data issues for monitoring (Grafana)",
   "author": "redpencil.io",
   "license": "MIT",
   "type": "module",
